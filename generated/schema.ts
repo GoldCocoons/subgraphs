@@ -69,17 +69,17 @@ export class Address extends Entity {
     this.set("balances", Value.fromStringArray(value));
   }
 
-  get transactions(): Array<string> {
-    let value = this.get("transactions");
+  get transfers(): Array<string> {
+    let value = this.get("transfers");
     return value!.toStringArray();
   }
 
-  set transactions(value: Array<string>) {
-    this.set("transactions", Value.fromStringArray(value));
+  set transfers(value: Array<string>) {
+    this.set("transfers", Value.fromStringArray(value));
   }
 }
 
-export class Transaction extends Entity {
+export class Transfer extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -87,18 +87,18 @@ export class Transaction extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save Transaction entity without an ID");
+    assert(id != null, "Cannot save Transfer entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type Transaction must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type Transfer must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("Transaction", id.toString(), this);
+      store.set("Transfer", id.toString(), this);
     }
   }
 
-  static load(id: string): Transaction | null {
-    return changetype<Transaction | null>(store.get("Transaction", id));
+  static load(id: string): Transfer | null {
+    return changetype<Transfer | null>(store.get("Transfer", id));
   }
 
   get id(): string {
@@ -183,7 +183,7 @@ export class Transaction extends Entity {
   }
 }
 
-export class AddressTransaction extends Entity {
+export class AddressTransfer extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -191,20 +191,18 @@ export class AddressTransaction extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save AddressTransaction entity without an ID");
+    assert(id != null, "Cannot save AddressTransfer entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type AddressTransaction must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type AddressTransfer must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("AddressTransaction", id.toString(), this);
+      store.set("AddressTransfer", id.toString(), this);
     }
   }
 
-  static load(id: string): AddressTransaction | null {
-    return changetype<AddressTransaction | null>(
-      store.get("AddressTransaction", id)
-    );
+  static load(id: string): AddressTransfer | null {
+    return changetype<AddressTransfer | null>(store.get("AddressTransfer", id));
   }
 
   get id(): string {
@@ -225,13 +223,13 @@ export class AddressTransaction extends Entity {
     this.set("address", Value.fromString(value));
   }
 
-  get transaction(): string {
-    let value = this.get("transaction");
+  get transfer(): string {
+    let value = this.get("transfer");
     return value!.toString();
   }
 
-  set transaction(value: string) {
-    this.set("transaction", Value.fromString(value));
+  set transfer(value: string) {
+    this.set("transfer", Value.fromString(value));
   }
 }
 
@@ -359,5 +357,14 @@ export class Token extends Entity {
 
   set decimals(value: BigInt) {
     this.set("decimals", Value.fromBigInt(value));
+  }
+
+  get weight(): BigDecimal {
+    let value = this.get("weight");
+    return value!.toBigDecimal();
+  }
+
+  set weight(value: BigDecimal) {
+    this.set("weight", Value.fromBigDecimal(value));
   }
 }

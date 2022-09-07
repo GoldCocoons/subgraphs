@@ -16,9 +16,17 @@ dataSources:
         - Address
         - Balance
         - Transaction
-      abis:
+      abis:       
         - name: paxg
-          file: ./abis/paxg.json
+          file: abis/paxg.json
+        - name: ERC20
+          file: abis/erc20/ERC20.json
+        - name: ERC20NameBytes
+          file: abis/erc20/ERC20NameBytes.json
+        - name: ERC20SymbolBytes
+          file: abis/erc20/ERC20SymbolBytes.json
+        - name: UniV2Pair
+          file: abis/UniV2Pair.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer

@@ -3,11 +3,11 @@ type Address @entity {
   totalGoldWeight: BigDecimal! ## measured in ounce
   totalGoldUsd: BigDecimal!
   balances: [Balance!]! @derivedFrom(field: "address")
-  transactions: [AddressTransaction!]! @derivedFrom(field: "address")
+  transfers: [AddressTransfer!]! @derivedFrom(field: "address")
 }
 
-type Transaction @entity {
-  id: ID! ## transaction hash
+type Transfer @entity {
+  id: ID! ## transfer hash
   from: Bytes! # address
   to: Bytes! # address
   timestamp: BigInt!
@@ -15,13 +15,13 @@ type Transaction @entity {
   amount: BigDecimal!
   amountWeight: BigDecimal!
   amountUsd: BigDecimal!
-  addresses: [AddressTransaction!]! @derivedFrom(field: "transaction")
+  addresses: [AddressTransfer!]! @derivedFrom(field: "transfer")
 }
 
-type AddressTransaction @entity {
-  id: ID! ## address.id + transaction.id
+type AddressTransfer @entity {
+  id: ID! ## address.id + transfer.id
   address: Address!
-  transaction: Transaction!
+  transfer: Transfer!
 }
 
 type Balance @entity {
@@ -37,4 +37,5 @@ type Token @entity {
   name: String!
   ticker: String!
   decimals: BigInt!
+  weight: BigDecimal!
 }
