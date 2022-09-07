@@ -10,7 +10,7 @@ export const PAXG_WEIGHT = "1";
 
 // Token Addresses
 // Gold Tokens
-export const PAXG_ADDRESS: Address = Address.fromString("0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2");
+export const PAXG_ADDRESS: Address = Address.fromString("0x45804880De22913dAFE09f4980848ECE6EcbAf78");
 // Pair Addresses
 export const PAXG_USDP_ADDRESS: Address = Address.fromString("0x709f7B10F22EB62b05913B59b92DDd372d4E2152");
 // Other Tokens

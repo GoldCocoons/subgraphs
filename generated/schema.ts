@@ -42,24 +42,6 @@ export class Address extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get totalGoldWeight(): BigDecimal {
-    let value = this.get("totalGoldWeight");
-    return value!.toBigDecimal();
-  }
-
-  set totalGoldWeight(value: BigDecimal) {
-    this.set("totalGoldWeight", Value.fromBigDecimal(value));
-  }
-
-  get totalGoldUsd(): BigDecimal {
-    let value = this.get("totalGoldUsd");
-    return value!.toBigDecimal();
-  }
-
-  set totalGoldUsd(value: BigDecimal) {
-    this.set("totalGoldUsd", Value.fromBigDecimal(value));
-  }
-
   get balances(): Array<string> {
     let value = this.get("balances");
     return value!.toStringArray();
