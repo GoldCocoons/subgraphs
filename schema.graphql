@@ -38,3 +38,8 @@ type Token @entity {
   decimals: BigInt!
   weight: BigDecimal!
 }
+
+type Stats @entity {
+  id: ID! ## 1
+  transferCount: BigInt!
+}

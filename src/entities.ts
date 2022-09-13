@@ -1,8 +1,8 @@
 import { Address, BigDecimal, BigInt, Bytes } from "@graphprotocol/graph-ts";
 import { ERC20 } from "../generated/paxg/ERC20";
-import { Address as OwnerAddress, AddressTransfer, Balance, Token, Transfer } from "../generated/schema";
+import { Address as OwnerAddress, AddressTransfer, Balance, Stats, Token, Transfer } from "../generated/schema";
 import { convertTokenToDecimal, fetchTokenDecimals, fetchTokenName, fetchTokenSymbol } from "./utils";
-import { ONE_BD, PAXG_ADDRESS, PAXG_WEIGHT } from "./utils/constant";
+import { ONE_BD, ONE_BI, PAXG_ADDRESS, PAXG_WEIGHT, ZERO_BI } from "./utils/constant";
 import { findUsdPerTokenOnChain } from "./utils/pricing";
 
 export function loadOrCreateTransfer(eventIndex: BigInt, txHash: Bytes, timestamp: BigInt, addresses: Address[], token: Token, amount: BigDecimal, amountWeight: BigDecimal, amountUsd: BigDecimal): Transfer {
@@ -53,6 +53,22 @@ export function loadOrCreateAddress(address: Address): OwnerAddress {
     }
 
     return ownerAddress as OwnerAddress;
+}
+
+export function updateStats(): Stats {
+    let stats = Stats.load(ONE_BI.toString());
+
+    if (stats === null) {
+        stats = new Stats(ONE_BI.toString());
+        stats.transferCount = ZERO_BI;
+        stats.save();
+    } else {
+        const transferCount = stats.transferCount.plus(ONE_BI);
+        stats.transferCount = transferCount;
+        stats.save();
+    }
+
+    return stats as Stats;
 }
 
 export function loadOrCreateAddressTransfer(address: OwnerAddress, eventIndex: BigInt): AddressTransfer {

@@ -1,21 +1,21 @@
-import { log } from "@graphprotocol/graph-ts";
 import {
   Transfer
 } from "../generated/paxg/paxg";
-import { createOrUpdateBalance, loadOrCreateAddress, loadOrCreateAddressTransfer, loadOrCreateToken, loadOrCreateTransfer } from "./entities";
+import { createOrUpdateBalance, loadOrCreateAddress, loadOrCreateAddressTransfer, loadOrCreateToken, loadOrCreateTransfer, updateStats } from "./entities";
 import { convertTokenToDecimal } from "./utils";
 import { findUsdPerTokenOnChain } from "./utils/pricing";
 
 export function handleTransfer(event: Transfer): void {
-  // TODO:
   const token = loadOrCreateToken(event.address);
+  const stats = updateStats();
+
   const addresses = [event.params.from, event.params.to];
   const amount = convertTokenToDecimal(event.params.value, token.decimals);
   const amountWeight = amount.times(token.weight);
   const amountUsd = findUsdPerTokenOnChain(token).times(amount);
 
   //1. create Transfer entity
-  loadOrCreateTransfer(event.logIndex, event.transaction.hash, event.block.timestamp, addresses, token, amount, amountWeight, amountUsd);
+  loadOrCreateTransfer(stats.transferCount, event.transaction.hash, event.block.timestamp, addresses, token, amount, amountWeight, amountUsd);
   //2. create Address entity with the sender and receiver address
   const address0 = loadOrCreateAddress(addresses[0]);
   const address1 = loadOrCreateAddress(addresses[1]);
@@ -23,6 +23,6 @@ export function handleTransfer(event: Transfer): void {
   createOrUpdateBalance(address0, token);
   createOrUpdateBalance(address1, token);
 
-  loadOrCreateAddressTransfer(address0, event.logIndex);
-  loadOrCreateAddressTransfer(address1, event.logIndex);
+  loadOrCreateAddressTransfer(address0, stats.transferCount);
+  loadOrCreateAddressTransfer(address1, stats.transferCount);
 }
