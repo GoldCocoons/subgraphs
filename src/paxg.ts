@@ -15,7 +15,7 @@ export function handleTransfer(event: Transfer): void {
   const amountUsd = findUsdPerTokenOnChain(token).times(amount);
 
   //1. create Transfer entity
-  loadOrCreateTransfer(event.logIndex, event.block.timestamp, addresses, token, amount, amountWeight, amountUsd);
+  loadOrCreateTransfer(event.logIndex, event.transaction.hash, event.block.timestamp, addresses, token, amount, amountWeight, amountUsd);
   //2. create Address entity with the sender and receiver address
   const address0 = loadOrCreateAddress(addresses[0]);
   const address1 = loadOrCreateAddress(addresses[1]);

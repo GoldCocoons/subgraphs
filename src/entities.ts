@@ -5,7 +5,7 @@ import { convertTokenToDecimal, fetchTokenDecimals, fetchTokenName, fetchTokenSy
 import { ONE_BD, PAXG_ADDRESS, PAXG_WEIGHT } from "./utils/constant";
 import { findUsdPerTokenOnChain } from "./utils/pricing";
 
-export function loadOrCreateTransfer(eventIndex: BigInt, timestamp: BigInt, addresses: Address[], token: Token, amount: BigDecimal, amountWeight: BigDecimal, amountUsd: BigDecimal): Transfer {
+export function loadOrCreateTransfer(eventIndex: BigInt, txHash: Bytes, timestamp: BigInt, addresses: Address[], token: Token, amount: BigDecimal, amountWeight: BigDecimal, amountUsd: BigDecimal): Transfer {
     let transfer = Transfer.load(eventIndex.toString());
 
     if (transfer === null) {
@@ -14,6 +14,7 @@ export function loadOrCreateTransfer(eventIndex: BigInt, timestamp: BigInt, addr
         transfer.from = addresses[0];
         transfer.to = addresses[1];
         transfer.token = token.id;
+        transfer.txHash = txHash.toHexString();
 
         transfer.amount = amount;
         transfer.amountWeight = amountWeight;

@@ -5,7 +5,8 @@ type Address @entity {
 }
 
 type Transfer @entity {
-  id: ID! ## transfer hash
+  id: ID! ## event logIndex
+  txHash: String!
   from: Bytes! # address
   to: Bytes! # address
   timestamp: BigInt!

@@ -51,13 +51,21 @@ export class Address extends Entity {
     this.set("balances", Value.fromStringArray(value));
   }
 
-  get transfers(): Array<string> {
+  get transfers(): Array<string> | null {
     let value = this.get("transfers");
-    return value!.toStringArray();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
   }
 
-  set transfers(value: Array<string>) {
-    this.set("transfers", Value.fromStringArray(value));
+  set transfers(value: Array<string> | null) {
+    if (!value) {
+      this.unset("transfers");
+    } else {
+      this.set("transfers", Value.fromStringArray(<Array<string>>value));
+    }
   }
 }
 
@@ -90,6 +98,15 @@ export class Transfer extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
+  }
+
+  get txHash(): string {
+    let value = this.get("txHash");
+    return value!.toString();
+  }
+
+  set txHash(value: string) {
+    this.set("txHash", Value.fromString(value));
   }
 
   get from(): Bytes {
