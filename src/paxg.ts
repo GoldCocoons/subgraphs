@@ -1,3 +1,4 @@
+import { log } from "@graphprotocol/graph-ts";
 import {
   Transfer
 } from "../generated/paxg/paxg";
@@ -14,7 +15,7 @@ export function handleTransfer(event: Transfer): void {
   const amountUsd = findUsdPerTokenOnChain(token).times(amount);
 
   //1. create Transfer entity
-  loadOrCreateTransfer(event.transaction.hash, event.block.timestamp, addresses, token, amount, amountWeight, amountUsd);
+  loadOrCreateTransfer(event.logIndex, event.block.timestamp, addresses, token, amount, amountWeight, amountUsd);
   //2. create Address entity with the sender and receiver address
   const address0 = loadOrCreateAddress(addresses[0]);
   const address1 = loadOrCreateAddress(addresses[1]);
@@ -22,6 +23,6 @@ export function handleTransfer(event: Transfer): void {
   createOrUpdateBalance(address0, token);
   createOrUpdateBalance(address1, token);
 
-  loadOrCreateAddressTransfer(address0, event.transaction.hash);
-  loadOrCreateAddressTransfer(address1, event.transaction.hash);
+  loadOrCreateAddressTransfer(address0, event.logIndex);
+  loadOrCreateAddressTransfer(address1, event.logIndex);
 }
