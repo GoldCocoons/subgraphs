@@ -11,8 +11,8 @@ export function loadOrCreateTransfer(eventIndex: BigInt, txHash: Bytes, timestam
     if (transfer === null) {
         transfer = new Transfer(eventIndex.toString());
         transfer.timestamp = timestamp;
-        transfer.from = addresses[0].toHexString();
-        transfer.to = addresses[1].toHexString();
+        transfer.from = addresses[0];
+        transfer.to = addresses[1];
         transfer.token = token.id;
         transfer.txHash = txHash.toHexString();
 
