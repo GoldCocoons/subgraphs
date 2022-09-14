@@ -21,6 +21,7 @@ type AddressTransfer @entity {
   id: ID! ## address.id + transfer.id
   address: Address!
   transfer: Transfer!
+  countId: BigInt!
 }
 
 type Balance @entity {

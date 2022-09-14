@@ -11,8 +11,8 @@ export function loadOrCreateTransfer(eventIndex: BigInt, txHash: Bytes, timestam
     if (transfer === null) {
         transfer = new Transfer(eventIndex.toString());
         transfer.timestamp = timestamp;
-        transfer.from = addresses[0];
-        transfer.to = addresses[1];
+        transfer.from = addresses[0].toHexString();
+        transfer.to = addresses[1].toHexString();
         transfer.token = token.id;
         transfer.txHash = txHash.toHexString();
 
@@ -71,14 +71,15 @@ export function updateStats(): Stats {
     return stats as Stats;
 }
 
-export function loadOrCreateAddressTransfer(address: OwnerAddress, eventIndex: BigInt): AddressTransfer {
-    const id = address.id.concat(eventIndex.toString());
+export function loadOrCreateAddressTransfer(address: OwnerAddress, transferCount: BigInt): AddressTransfer {
+    const id = address.id.concat(transferCount.toString());
     let addressTransfer = AddressTransfer.load(id);
 
     if (addressTransfer === null) {
         addressTransfer = new AddressTransfer(id);
         addressTransfer.address = address.id;
-        addressTransfer.transfer = eventIndex.toString();
+        addressTransfer.transfer = transferCount.toString();
+        addressTransfer.countId = transferCount;
         addressTransfer.save()
     }
 
