@@ -2,7 +2,7 @@ import { Address, BigDecimal, BigInt, Bytes } from "@graphprotocol/graph-ts";
 import { ERC20 } from "../generated/paxg/ERC20";
 import { Address as OwnerAddress, AddressTransfer, Balance, Stats, Token, Transfer } from "../generated/schema";
 import { convertTokenToDecimal, fetchTokenDecimals, fetchTokenName, fetchTokenSymbol } from "./utils";
-import { ONE_BD, ONE_BI, PAXG_ADDRESS, PAXG_WEIGHT, ZERO_BI } from "./utils/constant";
+import { ONE_BD, ONE_BI, PAXG_ADDRESS, PAXG_WEIGHT, TETHERG_ADDRESS, TETHERG_WEIGHT, ZERO_BI } from "./utils/constant";
 import { findUsdPerTokenOnChain } from "./utils/pricing";
 
 export function loadOrCreateTransfer(eventIndex: BigInt, txHash: Bytes, timestamp: BigInt, addresses: Address[], token: Token, amount: BigDecimal, amountWeight: BigDecimal, amountUsd: BigDecimal): Transfer {
@@ -32,6 +32,8 @@ export function loadOrCreateToken(address: Address): Token {
         let tokenWeight = ONE_BD;
         if (address.toHexString() == PAXG_ADDRESS.toHexString())
             tokenWeight = BigDecimal.fromString(PAXG_WEIGHT);
+        if (address.toHexString() == TETHERG_ADDRESS.toHexString())
+            tokenWeight = BigDecimal.fromString(TETHERG_WEIGHT);
 
         token = new Token(address.toHexString());
         token.weight = tokenWeight;
@@ -93,6 +95,7 @@ export function createOrUpdateBalance(address: OwnerAddress, token: Token): Bala
     if (balance === null) {
         balance = new Balance(id);
         balance.address = address.id;
+        balance.token = token.id;
     }
 
     const ercToken = ERC20.bind(Address.fromString(token.id));

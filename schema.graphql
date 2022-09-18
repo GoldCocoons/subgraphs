@@ -26,6 +26,7 @@ type AddressTransfer @entity {
 
 type Balance @entity {
   id: ID! ## the token address + - + owner address
+  token: Token!
   address: Address! ## owner address
   amount: BigDecimal!
   amountWeight: BigDecimal! ## measured in ounce

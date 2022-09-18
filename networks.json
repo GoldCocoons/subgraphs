@@ -2,6 +2,9 @@
   "mainnet": {
     "paxg": {
       "address": "0x74271F2282eD7eE35c166122A60c9830354be42a"
+    },
+    "tetherg": {
+      "address": "0x68749665FF8D2d112Fa859AA293F07A622782F38"
     }
   }
 }

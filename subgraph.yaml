@@ -8,7 +8,37 @@ dataSources:
     source:
       address: "0x45804880De22913dAFE09f4980848ECE6EcbAf78"
       abi: paxg
-      startBlock: 14136655
+      startBlock: 15136655
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Address
+        - Balance
+        - Transaction
+      abis:
+        - name: paxg
+          file: abis/paxg.json
+        - name: ERC20
+          file: abis/erc20/ERC20.json
+        - name: ERC20NameBytes
+          file: abis/erc20/ERC20NameBytes.json
+        - name: ERC20SymbolBytes
+          file: abis/erc20/ERC20SymbolBytes.json
+        - name: UniV2Pair
+          file: abis/UniV2Pair.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/paxg.ts
+  - kind: ethereum
+    name: tethergold
+    network: mainnet
+    source:
+      address: "0x68749665FF8D2d112Fa859AA293F07A622782F38"
+      abi: paxg
+      startBlock: 15136655
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
