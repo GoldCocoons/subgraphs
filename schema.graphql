@@ -39,9 +39,39 @@ type Token @entity {
   ticker: String!
   decimals: BigInt!
   weight: BigDecimal!
+
+  totalSupply: BigDecimal!
+  derivedETH: BigDecimal!
+  tokenDayData: [TokenDayData!]! @derivedFrom(field: "token")
 }
 
 type Stats @entity {
   id: ID! ## 1
   transferCount: BigInt!
+}
+
+# stores for USD calculations
+type Bundle @entity {
+  id: ID!
+  ethPrice: BigDecimal! # price of ETH usd
+}
+
+type TokenDayData @entity {
+  id: ID!
+  date: Int!
+  token: Token!
+
+  # volume stats
+  dailyVolumeToken: BigDecimal!
+  dailyVolumeETH: BigDecimal!
+  dailyVolumeUSD: BigDecimal!
+  dailyTxns: BigInt!
+
+  # liquidity stats
+  totalLiquidityToken: BigDecimal!
+  totalLiquidityETH: BigDecimal!
+  totalLiquidityUSD: BigDecimal!
+
+  # price stats
+  priceUSD: BigDecimal!
 }
