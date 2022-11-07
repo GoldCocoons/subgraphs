@@ -47,7 +47,7 @@ export function findUsdPerEth(): BigDecimal {
         const reserve1 = convertTokenToDecimal(reserves.value.value1, token1.decimals);
 
         const token0isEth = token0.id == WETH_ADDRESS.toHexString();
-        usdPerToken = token0isEth ? safeDiv(reserve0, reserve1) : safeDiv(reserve1, reserve0);
+        usdPerToken = token0isEth ? safeDiv(reserve1, reserve0) : safeDiv(reserve0, reserve1);
     }
 
     return usdPerToken;

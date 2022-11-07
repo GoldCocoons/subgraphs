@@ -40,8 +40,7 @@ type Token @entity {
   decimals: BigInt!
   weight: BigDecimal!
 
-  totalSupply: BigDecimal!
-  derivedETH: BigDecimal!
+  totalSupply: BigInt!
   tokenDayData: [TokenDayData!]! @derivedFrom(field: "token")
 }
 

@@ -1,7 +1,7 @@
 import { Address, BigDecimal, BigInt, Bytes } from "@graphprotocol/graph-ts";
 import { ERC20 } from "../generated/paxg/ERC20";
 import { Address as OwnerAddress, AddressTransfer, Balance, Stats, Token, Transfer } from "../generated/schema";
-import { convertTokenToDecimal, fetchTokenDecimals, fetchTokenName, fetchTokenSymbol } from "./utils";
+import { convertTokenToDecimal, fetchTokenDecimals, fetchTokenName, fetchTokenSupply, fetchTokenSymbol } from "./utils";
 import { CACHE_ADDRESS, CACHE_WEIGHT, ONE_BD, ONE_BI, PAXG_ADDRESS, PAXG_WEIGHT, TETHERG_ADDRESS, TETHERG_WEIGHT, ZERO_BI } from "./utils/constant";
 import { findUsdPerTokenOnChain } from "./utils/pricing";
 
@@ -41,6 +41,7 @@ export function loadOrCreateToken(address: Address): Token {
         token.weight = tokenWeight;
         token.decimals = fetchTokenDecimals(address);
         token.ticker = fetchTokenSymbol(address);
+        token.totalSupply = fetchTokenSupply(address);
         token.name = fetchTokenName(address);
         token.save()
     }
