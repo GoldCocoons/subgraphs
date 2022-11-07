@@ -31,7 +31,7 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/paxg.ts
+      file: ./src/handler.ts
   - kind: ethereum
     name: tethergold
     network: mainnet
@@ -61,4 +61,34 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/paxg.ts
+      file: ./src/handler.ts
+  - kind: ethereum
+    name: cachegold
+    network: mainnet
+    source:
+      address: "0xf5238462e7235c7b62811567e63dd17d12c2eaa0"
+      abi: paxg
+      startBlock: 15136655
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Address
+        - Balance
+        - Transaction
+      abis:
+        - name: paxg
+          file: abis/paxg.json
+        - name: ERC20
+          file: abis/erc20/ERC20.json
+        - name: ERC20NameBytes
+          file: abis/erc20/ERC20NameBytes.json
+        - name: ERC20SymbolBytes
+          file: abis/erc20/ERC20SymbolBytes.json
+        - name: UniV2Pair
+          file: abis/UniV2Pair.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/handler.ts

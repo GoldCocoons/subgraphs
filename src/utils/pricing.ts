@@ -3,7 +3,7 @@ import { convertTokenToDecimal, safeDiv } from ".";
 import { UniV2Pair } from "../../generated/paxg/UniV2Pair";
 import { Token } from "../../generated/schema";
 import { loadOrCreateToken } from "../entities";
-import { ADDRESS_ZERO, PAXG_ADDRESS, PAXG_USDP_ADDRESS, TETHERG_ADDRESS, WETH_ADDRESS, ZERO_BD } from "./constant";
+import { ADDRESS_ZERO, CACHE_ADDRESS, CACHE_USDC_ADDRESS, PAXG_ADDRESS, PAXG_USDP_ADDRESS, TETHERG_ADDRESS, WETH_ADDRESS, ZERO_BD } from "./constant";
 
 export function findUsdPerTokenOnChain(token: Token): BigDecimal {
     let usdPerToken = ZERO_BD;
@@ -13,6 +13,8 @@ export function findUsdPerTokenOnChain(token: Token): BigDecimal {
         pairAddress = PAXG_USDP_ADDRESS;
     if (token.id == TETHERG_ADDRESS.toHexString())
         pairAddress = PAXG_USDP_ADDRESS;
+    if (token.id == CACHE_ADDRESS.toHexString())
+        pairAddress = CACHE_USDC_ADDRESS;
 
     const pair = UniV2Pair.bind(pairAddress);
     const reserves = pair.try_getReserves();
