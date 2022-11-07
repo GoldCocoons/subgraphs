@@ -16,9 +16,10 @@ export const PAXG_ADDRESS: Address = Address.fromString("0x45804880De22913dAFE09
 export const TETHERG_ADDRESS: Address = Address.fromString("0x68749665FF8D2d112Fa859AA293F07A622782F38");
 export const CACHE_ADDRESS: Address = Address.fromString("0xf5238462e7235c7b62811567e63dd17d12c2eaa0");
 // Pair Addresses
-export const PAXG_USDP_ADDRESS: Address = Address.fromString("0x709f7B10F22EB62b05913B59b92DDd372d4E2152");
-export const TETHERG_USDP_ADDRESS: Address = Address.fromString("0x709f7B10F22EB62b05913B59b92DDd372d4E2152");
-export const CACHE_USDC_ADDRESS: Address = Address.fromString("0x2cf500dccf4b8f68126ed155acd351aad8b328fe");
+export const WETH_USDC_ADDRESS: Address = Address.fromString("0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc");
+export const PAXG_ETH_ADDRESS: Address = Address.fromString("0x9C4Fe5FFD9A9fC5678cFBd93Aa2D4FD684b67C4C");
+export const TETHERG_ETH_ADDRESS: Address = Address.fromString("0x9C4Fe5FFD9A9fC5678cFBd93Aa2D4FD684b67C4C");
+export const CACHE_ETH_ADDRESS: Address = Address.fromString("0x2Cd2d275cdb237e696c60419109Fac5F331484E1");
 // Other Tokens
 export const ADDRESS_ZERO: Address = Address.fromString("0x0000000000000000000000000000000000000000");
 export const WETH_ADDRESS: Address = Address.fromString("0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2");
